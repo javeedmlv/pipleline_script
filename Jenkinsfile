@@ -16,10 +16,23 @@ pipeline {
                 sh 'sh build.sh'
             }
         }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+//         stage('Deploy') {
+//             steps {
+//                 echo 'Deploying....'
+//             }
+//         }
+        stage('Deploy to Production') {
+            when {
+                expression { 
+                   return params.ENVIRONMENT == 'PROD'
+                }
             }
-        }
+            steps {
+                    sh """
+                    echo "deploy to production"
+                    """
+                }
+            }
+   }
     }
 }
